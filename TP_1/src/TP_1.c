@@ -42,6 +42,11 @@ que contenga las funciones para realizar las cinco operaciones.
 #include <stdio.h>
 #include <stdlib.h>
 #include "operaciones.h"
+#include "validaciones.h"
+#include "menu.h"
+
+#define MIN -30000
+#define MAX 30000
 
 int main(void) {
 	setbuf(stdout, NULL);
@@ -64,12 +69,14 @@ int main(void) {
 	int flagCalculos = 0;
 	int flagMostrar = 0;
 	int flagOperando = 0;
+	int flagFactorial1 = 0;
+	int flagFactorial2 = 0;
 
 	float resultadoDivision;
 
 
 
-	printf("¡Bienvenidx a la calculadora!\n\nRecuerde que los valores A y B se reemplazarán una vez cargados ambos operandos.\nElija una opción: \n");
+	printf("¡Bienvenidx a la calculadora!\n\nRecuerde que los valores A y B se reemplazarán una vez cargados ambos operandos.\n");
 
 do{
 
@@ -77,43 +84,35 @@ do{
 	if (flag == 0)
 	{
 
-		printf("\n1. Ingresar 1er operando (A=x)\n2. Ingresar 2do operando (B=y)\n3. Calcular todas las operaciones\n\na) Calcular la suma (A+B)\nb) Calcular la resta (A-B)\nc) Calcular la division(A/B)\nd) Calcular la multiplicacion\ne) Calcular el factorial\n\n4. Informar resultados\n5. Salir\n\n");
-		printf("====================\n");
-		fflush(stdin);
-		scanf("%d", &accion);
-
+		menu (&accion);
 
 
 			switch (accion)
 			{
 
 			case 1:
-					printf("\nIngrese el 1er operando: ");
-					fflush(stdin);
-					scanf("%d", &operando1);
-					printf("Usted ha ingresado: %d\n", operando1);
-					printf("====================\n");
+					printf("\nEligió cargar el primer operando.\n\n");
+					ingresoNum (MIN, MAX, &operando1);
 					flagOperando = 1;
 					break;
 
+
 			case 2:
 
-				if(flagOperando == 1)
-				{
-					printf("Ingrese el 2do operando: ");
-					fflush(stdin);
-					scanf("%d", &operando2);
-					printf("Usted ha ingresado: %d\n", operando2);
-					printf("====================\n");
-					flag = 1;
-					flagCalculos = 1;
-				}
-				else
-				{
-					printf("Error. Debe ingresar el primer operando antes.");
-					printf("====================\n");
-				}
+					if(flagOperando == 1)
+					{
+						printf("\nEligió cargar el segundo operando.\n\n");
+						ingresoNum (MIN, MAX, &operando2);
+						flag = 1;
+						flagCalculos = 1;
+					}
+					else
+					{
+						printf("Error. Debe ingresar el primer operando antes.");
+					}
+
 					break;
+
 
 			case 5:
 					printf("Seleccionó salir del programa.");
@@ -121,40 +120,36 @@ do{
 					break;
 
 
+
 			default:
 					if(flagCalculos == 0)
 					{
 						printf("Error. Debe ingresar ambos operandos para poder continuar.\n\n");
-						printf("====================\n");
 						break;
 					}
 			}
 
+	system("pause");
 	}
 
 	else if (flag == 1)
 	{
 
-		printf("\n1. Ingresar 1er operando (A = %d)\n2. Ingresar 2do operando (B = %d)\n3. Calcular todas las operaciones\n\na) Calcular la suma (A+B)\nb) Calcular la resta (A-B)\nc) Calcular la division(A/B)\nd) Calcular la multiplicacion\ne) Calcular el factorial\n\n4. Informar resultados\n5. Salir\n\n", operando1, operando2);
-		printf("====================\n");
-		fflush(stdin);
-		scanf("%d", &accion);
+		menu2 (&accion, operando1, operando2);
 
 
 			switch (accion)
 			{
 
 			case 1:
-					printf("\nIngrese el 1er operando: ");
-					fflush(stdin);
-					scanf("%d", &operando1);
+					printf("\nEligió cargar el primer operando.\n\n");
+					ingresoNum (MIN, MAX, &operando1);
 					break;
 
 
 			case 2:
-					printf("Ingrese el 2do operando: ");
-					fflush(stdin);
-					scanf("%d", &operando2);
+					printf("\nEligió cargar el segundo operando.\n\n");
+					ingresoNum (MIN, MAX, &operando2);
 					break;
 
 
@@ -163,13 +158,24 @@ do{
 					resultadoResta = restar (operando1, operando2);
 					seraDivision = dividir ((float)operando1, operando2, &resultadoDivision);
 					resultadoMultiplicacion = multiplicar (operando1, operando2);
+
+
+					if (operando1 < 16)
+					{
 					resultadoFactorial1 = calcularFactorial (operando1);
+					flagFactorial1 = 1;
+					}
+
+					if (operando2 < 16)
+					{
 					resultadoFactorial2 = calcularFactorial (operando2);
+					flagFactorial2 = 1;
+					}
+
+
 					flagMostrar = 1;
 
 					printf("Usted ha calculado todas las operaciones.\n");
-					printf("====================\n");
-
 					break;
 
 
@@ -179,45 +185,69 @@ do{
 						printf("\na) El resultado de A+B es: %d", resultadoSuma);
 						printf("\nb) El resultado de A-B es: %d", resultadoResta);
 
-						if (seraDivision == 0)
-						{
-							printf("\nc) El resultado de A/B es: %.2f", resultadoDivision);
-						}
-						else
-						{
-							printf("\nc) No es posible dividir por cero.");
-						}
+							if (seraDivision == 0)
+							{
+								printf("\nc) El resultado de A/B es: %.2f", resultadoDivision);
+							}
+							else
+							{
+								printf("\nc) No es posible dividir por cero.");
+							}
+
 
 						printf("\nd) El resultado de A*B es: %d", resultadoMultiplicacion);
-						printf("\ne)  El factorial de A es: %d y El factorial de B es: %d\n\n", resultadoFactorial1, resultadoFactorial2);
 
 
-						resultadoFactorial1 = 1;
-						resultadoFactorial2 = 1;
-						flag = 0;
+							if (flagFactorial1 == 1)
+							{
+								printf("\ne.1) El factorial de A es: %d\n", resultadoFactorial1);
+								resultadoFactorial1 = 1;
+
+								flagFactorial1 = 0;
+							}
+							else
+							{
+								printf("\ne.1) No se puede calcular el factorial de un número tan grande.\n");
+							}
+
+
+
+							if (flagFactorial2 == 1)
+							{
+								printf("e.2) El factorial de B es: %d\n", resultadoFactorial2);
+								resultadoFactorial2 = 1;
+								flagFactorial2 = 0;
+							}
+							else
+							{
+								printf("e.2) No se puede calcular el factorial de un número tan grande.\n");
+							}
+
+
+							flag = 0;
 					}
 					else
 					{
 						printf("No se pueden mostrar los resultados sin haber hecho los cálculos anteriormente.\n\n");
 					}
 
-					printf("====================\n");
 					break;
 
 
 
 			case 5:
-					printf("Seleccionó salir del programa.\n");
+					printf("Seleccionó salir del programa.\n\n");
 					seguir = 1;
 					break;
 
 
 			default:
 					printf("\nHa ingresado un caracter no valido. Los permitidos son a-b-c-d-e.\n\n");
-					printf("====================\n");
 					break;
 
 			}
+
+		system("pause");
 		}
 
 
