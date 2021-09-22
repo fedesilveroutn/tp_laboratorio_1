@@ -5,6 +5,7 @@
  *      Author: Fede
  */
 #include "validaciones.h"
+#include "menu.h"
 
 /**
  * @fn int ingresoNum( int, int, int*)
@@ -33,7 +34,9 @@ int ingresoNum (int min, int max, int* operando)
 			scanf("%d", &aux);
 		}
 
-	printf("Usted ha ingresado: %d\n", aux);
+	separador();
+	printf("\nUsted ha ingresado: %d\n", aux);
+	separador();
 
 	*operando = aux;
 	 retorno = 0;

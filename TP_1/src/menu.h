@@ -10,7 +10,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void menu (int* eleccion);
-void menu2 (int* eleccion, int operando1, int operando2);
-
+void menuSinValores (int* eleccion);
+void menuConValores (int* eleccion, int operando1, int operando2);
+void eleccion (int eleccion, int* operandoUno, int* operandoDos, int* continuar , int* flagCargaOperando2, int* flagCalculos, int* flagMenu);
+void separador();
 #endif /* MENU_H_ */
