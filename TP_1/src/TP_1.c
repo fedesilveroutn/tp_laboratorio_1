@@ -52,20 +52,20 @@ int main(void) {
 	setbuf(stdout, NULL);
 
 
-	int operando1;//guarda el valor que ingresa el usuario para el operando 1
-	int operando2;//guarda el valor que ingresa el usuario para el operando 2
-	int accion;//variable que guarda la eleccion del usuario
-	int seguir = 0;//salida del bucle do-while
+	int operando1;
+	int operando2;
+	int accion;
+	int seguir = 0;
 
-	int resultadoSuma;//guarda el resultado de la suma
-	int resultadoResta;//guarda el resultado de la resta
-	int resultadoMultiplicacion;//guarda el resultado de la multiplicacion
-	int seraDivision;//si es 0, quiere decir que la división pudo realizarse, si es 1 no
-	int resultadoFactorial1 = 1;//guarda el resultado del factorial1
-	int resultadoFactorial2 = 1;//guarda el resultado del factorial2
-	float resultadoDivision;//guarda el resultado de la division
+	int resultadoSuma;
+	int resultadoResta;
+	int resultadoMultiplicacion;
+	int seraDivision;
+	int resultadoFactorial1 = 1;
+	int resultadoFactorial2 = 1;
+	float resultadoDivision;
 
-	int flagMenu = 0;//para saber si mostrar menuSinValores o menuConValores
+	int flagMenu = 0;//para saber si mostrar eleccion() o realizar el switch
 	int flagHabilitacionOp2 = 0;//para saber si ya cargué previamente el operando1
 	int flagHabilitacionCalculos = 0;//para saber si puedo o no realizar los calculos
 	int flagHabilitacionMostrar = 0;//para habilitar la visualizacion de las operaciones realizadas
@@ -73,25 +73,27 @@ int main(void) {
 	int flagFactorial2 = 0;//lo mismo pero para el factorial2
 
 
+	operando1 = 0;
+	operando2 = 0;
 
 
 
-	printf("¡Bienvenidx a la calculadora!\n\nRecuerde que los valores A y B se reemplazarán una vez cargados ambos operandos.\n");
+	instrucciones();
 
 do{
 
+
 		if (flagMenu == 0)//si todavía no cargue ningun valor llamo a este codigo
 		{
-
-			menuSinValores (&accion); //muestra el menu de opciones sin cambiar el A ni B, ya que todavía no se ingresaron
+			menu(&accion, operando1, operando2);
 			eleccion (accion, &operando1, &operando2, &seguir, &flagHabilitacionOp2, &flagHabilitacionCalculos, &flagMenu);
 
 		}
 
-		else if (flagMenu == 1)
+		else if (flagMenu == 1)//si ya cargue un valor llamo a este otro
 
 		{
-			menuConValores (&accion, operando1, operando2);
+			menu(&accion, operando1, operando2);
 
 			switch (accion)
 			{
@@ -138,6 +140,7 @@ do{
 				separador();
 				if(flagHabilitacionMostrar == 1)
 				{
+					printf("\nLos resultados de las operaciones son: \n\n");
 					printf("\na) El resultado de A+B es: %d", resultadoSuma);
 					printf("\nb) El resultado de A-B es: %d", resultadoResta);
 
@@ -178,17 +181,19 @@ do{
 						printf("e.2) No se puede calcular el factorial de un número tan grande.\n");
 					}
 
-
+					flagHabilitacionCalculos = 0;
+					flagMenu = 0;
+					separador();
+					system ("pause");
 				}
 				else
 				{
+					separador();
 					printf("No se pueden mostrar los resultados sin haber hecho los cálculos anteriormente.\n");
+					separador();
 				}
 
-				flagHabilitacionCalculos = 0;
-				flagMenu = 0;
-				separador();
-				system ("pause");
+
 				break;
 
 
