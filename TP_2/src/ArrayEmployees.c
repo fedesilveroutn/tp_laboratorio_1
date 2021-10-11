@@ -134,14 +134,12 @@ int removeEmployee(Employee* list, int len, int id)
 
 	if (len != 0 && list != NULL)
 	{
-		printf("\n\nBuscando coincidencia...\n");
-
 		for ( i = 0; i < len ; i++)
 		{
 			if (list[i].id == id )
 			{
 				list[i].isEmpty = TRUE;
-				printf("Empleado %s %s dado de baja exitosamente!\n", list[i].name, list[i].lastName);
+				printf("%s %s dado de baja exitosamente!\n\n", list[i].name, list[i].lastName);
 				ret = 0;
 			}
 		}
@@ -248,12 +246,16 @@ int printEmployees(Employee* list, int length)
 
 		for( i = 0; i < length ; i++)
 		{
-			printf("%-5d %-20s %-20s %-20.2f %-20d\n", list[i].id,
-													   list[i].name,
-													   list[i].lastName,
-													   list[i].salary,
-													   list[i].sector);
+			if (list[i].isEmpty == FALSE )
+			{
+				printf("%-5d %-20s %-20s %-20.2f %-20d\n", list[i].id,
+														   list[i].name,
+														   list[i].lastName,
+														   list[i].salary,
+														   list[i].sector);
+			}
 		}
+
 	}
 
 	return 0;

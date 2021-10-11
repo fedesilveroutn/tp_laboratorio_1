@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "input.h"
 
 #define ARRAYEMPLOYEES_H_
 #define TRUE 1
@@ -11,7 +12,7 @@
 #define DOWN 0
 
 
-//DEFINICION DE LA ESTRUCTURA EMPLOYEE
+
 struct
 {
 	int id;
@@ -24,7 +25,7 @@ struct
 }typedef Employee;
 
 
-//FUNCIONES EMPLOYEE
+
 int initEmployees (Employee* list, int len);
 int addEmployee(Employee* list, int len, int id, char name[],char lastName[],float salary,int sector);
 int findEmployeeById(Employee* list, int len,int id);

@@ -30,18 +30,152 @@ carga de algún empleado.
 #include <stdlib.h>
 #include <string.h>
 #include "ArrayEmployees.h"
+#include "input.h"
+#include "menu.h"
 #define ELEMENTS 5
 #define UP 1
 #define DOWN 0
+#define ID 1000
 
 int main(void) {
 	setbuf(stdout, NULL);
 
+	//MAIN
 	Employee employee[ELEMENTS];
-	int i;
-	int index;
+	int lastId = ID;
+	int option;
+	int accountant = 0;
+
+	//AUX
+	Employee auxEmployee;
+	int preId;
+	char preName[51];
+	char preLastName[51];
+	float preSalary;
+	int preSector;
+	int flag = 0;
+	int idSearch;
+	int indexSearch;
 
 
+	initEmployees (employee, ELEMENTS);
+
+	do
+	{
+		preId = lastId;
+		getInt(&option,
+						"\n--------------------------------\n"
+						"1. ALTAS\n"
+						"2. MODIFICAR\n"
+						"3. BAJA\n"
+						"4. INFORMAR\n"
+						"5. SALIR"
+						"\n--------------------------------\n"
+						"Ingrese una opción (1-5): ",
+						"\n--------------------------------\n"
+						"1. ALTAS\n"
+						"2. MODIFICAR\n"
+						"3. BAJA\n"
+						"4. INFORMAR\n"
+						"5. SALIR"
+						"\n--------------------------------\n"
+						"Error. Reingrese una opción válida (1-5): ", 1 , 5);
+
+		switch (option)
+		{
+		case 1:
+				printf("\nDando de alta un empleado...");
+
+				getString (preName, "\nIngrese nombre: ", "\nError. Reingrese un nombre válido (hasta 50 caracteres): ", 51);
+				getString (preLastName, "Ingrese apellido: ", "\nError. Reingrese un nombre válido (hasta 50 caracteres): ", 51);
+				getFloat (&preSalary, "Ingrese sueldo: ", "\nError. Reingrese un sueldo válido (5000 - 500000): ", 5000 , 500000);
+				getInt (&preSector, "Ingrese sector: ", "\nError. Reingrese un sector válido (1 - 8): ", 1 , 8);
+
+				auxEmployee.id = preId + 1;
+				strcpy (auxEmployee.name , preName);
+				strcpy (auxEmployee.lastName , preLastName);
+				auxEmployee.salary = preSalary;
+				auxEmployee.sector =  preSector;
+
+				printf("\nEmpleado a ser dado de ALTA: \n");
+
+				if ( confirmation (auxEmployee) == 0)
+				{
+					addEmployee(employee, ELEMENTS , auxEmployee.id, auxEmployee.name, auxEmployee.lastName, auxEmployee.salary, auxEmployee.sector);
+
+					lastId++;
+					flag = 1;
+					accountant++;
+
+					printf("\nEmpleado dado de ALTA exitosamente!\n");
+					system("pause");
+				}
+
+				else
+				{
+					printf("\nUsted ha CANCELADO el alta!\n");
+					system("pause");
+				}
+
+				break;
+
+
+
+		case 3:
+				if (flag == 1)
+				{
+					printf("\n%-10s %-20s %-20s %-20s %-20s\n", "ID" , "Nombre", "Apellido" , "Salario" , "Sector");
+
+					for (int i = 0; i < ELEMENTS; i++)
+					{
+						if(employee[i].isEmpty == FALSE)
+						printf("%-10d %-20s %-20s %-20.2f %-20d\n\n", employee[i].id, employee[i].name , employee[i].lastName , employee[i].salary , employee[i].sector);
+					}
+
+
+					printf("\nIngrese el ID correspondiente al empleado que quiere dar de BAJA: ");
+					fflush(stdin);
+					scanf("%d", &idSearch);
+					indexSearch = findEmployeeById(employee, ELEMENTS , idSearch);
+
+					printf("\nEmpleado a ser dado de BAJA: \n");
+
+						if ( confirmation (employee[indexSearch]) == 0)
+						{
+							removeEmployee (employee, ELEMENTS, idSearch);
+							accountant--;
+
+							system("pause");
+						}
+
+						else
+						{
+							printf("\nUsted ha CANCELADO la baja!\n");
+							system("pause");
+						}
+				}
+
+				else
+				{
+					printf("\nPara acceder a todas las funciones debe dar de ALTA por lo menos a un empleado!\n");
+				}
+
+				break;
+		}
+
+
+
+	}while (option != 5);
+
+	return 0;
+}
+
+
+
+
+
+
+/*
 	//Para testear initEmployees---------------------------------------------------
 	initEmployees (employee , ELEMENTS);
 	for( i = 0; i < ELEMENTS; i++)
@@ -96,12 +230,12 @@ int main(void) {
 
 
 
-/*
+
 	//Para testear removeEmployee
 	removeEmployee (employee , ELEMENTS , 1002);
 	removeEmployee (employee , ELEMENTS , 1004);
 	//Fin testing------------------------------------------------------------------
-*/
+
 
 
 
@@ -145,8 +279,6 @@ int main(void) {
 
 
 
-
-
 	//Para testear printEmployee---------------------------------------------------
 	printf("\nFUNCION DE MOSTRAR: \n");
 	printEmployees(employee , ELEMENTS);
@@ -155,10 +287,14 @@ int main(void) {
 
 
 
-
-
-
-
-
-	return 0;
-}
+	//Para testear INPUTS----------------------------------------------------------
+	getInt(&num , "Ingrese un numero: ", "Error.Reingrese numero: ", 0, 10);
+	printf("\nNumero ingresado: %d", num);
+	getFloat(&numFloat , "Ingrese un numero flotante: ", "Error.Reingrese numero flotante: ", 0, 10);
+	printf("\nNumero ingresado: %.2f", numFloat);
+	getChar(&letter , "Ingrese un caracter: ", "Error.Reingrese caracter: ", 'A', 'z');
+	printf("\nCaracter ingresado: %c", letter);
+	getString(name , "Ingrese un nombre: ", "Error.Reingrese nombre: ", 51);
+	printf("\nNombre ingresado: %s", name);
+	//Fin testing------------------------------------------------------------------
+	*/
