@@ -57,6 +57,8 @@ int main(void) {
 	int idSearch;
 	int indexSearch;
 
+	int optionSubMenu;
+	int order;
 
 	initEmployees (employee, ELEMENTS);
 
@@ -64,12 +66,13 @@ int main(void) {
 	{
 		preId = lastId;
 		getInt(&option,
+						"\nMENU PRINCIPAL"
 						"\n--------------------------------\n"
 						"1. ALTAS\n"
 						"2. MODIFICAR\n"
 						"3. BAJA\n"
 						"4. INFORMAR\n"
-						"5. SALIR"
+						"5. SALIR DEL PROGRAMA"
 						"\n--------------------------------\n"
 						"Ingrese una opción (1-5): ",
 						"\n--------------------------------\n"
@@ -77,12 +80,13 @@ int main(void) {
 						"2. MODIFICAR\n"
 						"3. BAJA\n"
 						"4. INFORMAR\n"
-						"5. SALIR"
+						"5. SALIR DEL PROGRAMA"
 						"\n--------------------------------\n"
 						"Error. Reingrese una opción válida (1-5): ", 1 , 5);
 
 		switch (option)
 		{
+		//ALTA
 		case 1:
 				printf("\nDando de alta un empleado...");
 
@@ -107,13 +111,13 @@ int main(void) {
 					flag = 1;
 					accountant++;
 
-					printf("\nEmpleado dado de ALTA exitosamente!\n");
+					printf("\nEmpleado dado de ALTA exitosamente!\n\n");
 					system("pause");
 				}
 
 				else
 				{
-					printf("\nUsted ha CANCELADO el alta!\n");
+					printf("\nUsted ha CANCELADO el alta!\n\n");
 					system("pause");
 				}
 
@@ -121,6 +125,138 @@ int main(void) {
 
 
 
+
+		//MODIFICACION
+		case 2:
+				printf("\n%-10s %-20s %-20s %-20s %-20s\n", "ID" , "Nombre", "Apellido" , "Salario" , "Sector");
+
+				for (int i = 0; i < ELEMENTS; i++)
+				{
+					if(employee[i].isEmpty == FALSE)
+					printf("%-10d %-20s %-20s %-20.2f %-20d\n\n", employee[i].id, employee[i].name , employee[i].lastName , employee[i].salary , employee[i].sector);
+				}
+
+				printf("\nIngrese el ID correspondiente al empleado que quiere MODIFICAR: ");
+				fflush(stdin);
+				scanf("%d", &idSearch);
+
+				indexSearch = findEmployeeById(employee, ELEMENTS , idSearch);
+				printf("\nElija la opción que desea MODIFICAR: \n");
+
+
+					do
+					{
+					getInt (&optionSubMenu, "\nMENU DE MODIFICACIONES"
+											"\n--------------------------------\n"
+											"1. NOMBRE\n"
+											"2. APELLIDO\n"
+											"3. SALARIO\n"
+											"4. SECTOR\n"
+											"5. SALIR DEL SUBMENU DE MODIFICACIONES"
+											"\n--------------------------------\n"
+											"Ingrese una opción (1-5): ",
+											"\n--------------------------------\n"
+											"1. NOMBRE\n"
+											"2. APELLIDO\n"
+											"3. SALARIO\n"
+											"4. SECTOR\n"
+											"5. SALIR DEL SUBMENU DE MODIFICACIONES\n"
+											"\n--------------------------------\n"
+											"Error. Reingrese una opción válida (1-5): ", 1 , 5);
+
+					switch (optionSubMenu)
+					{
+
+					case 1:
+							getString(preName , "Ingrese el NUEVO NOMBRE: ", "Error. Reingrese un nombre válido (hasta 50 caracteres): ", 51);
+
+							auxEmployee = employee[indexSearch];
+							strcpy (auxEmployee.name , preName);
+
+							if( confirmation(auxEmployee) == 0)
+							{
+								strcpy (employee[indexSearch].name , preName);
+								printf("\nNOMBRE modificado exitosamente!\n\n");
+								system ("pause");
+							}
+							else
+							{
+								printf("\nUsted ha CANCELADO la modificación del nombre.\n\n");
+								system ("pause");
+							}
+
+							break;
+
+					case 2:
+							getString(preLastName , "Ingrese el NUEVO APELLIDO: ", "Error. Reingrese un apellido válido (hasta 50 caracteres): ", 51);
+							auxEmployee = employee[indexSearch];
+							strcpy (auxEmployee.lastName , preLastName);
+
+							if( confirmation(auxEmployee) == 0)
+							{
+								strcpy (employee[indexSearch].lastName , preLastName);
+								printf("\nAPELLIDO modificado exitosamente!\n\n");
+								system ("pause");
+							}
+							else
+							{
+								printf("\nUsted ha CANCELADO la modificación del apellido.\n\n");
+								system ("pause");
+							}
+
+							break;
+
+					case 3:
+							getFloat (&preSalary, "Ingrese el NUEVO SALARIO: ", "Error. Reingrese un salario válido (5000-500000): ", 500 , 500000 );
+							auxEmployee = employee[indexSearch];
+							auxEmployee.salary = preSalary;
+
+							if ( confirmation (auxEmployee) == 0)
+							{
+								employee[indexSearch].salary = preSalary;
+								printf("\nSALARIO modificado exitosamente!\n\n");
+								system ("pause");
+							}
+							else
+							{
+								printf("\nUsted ha CANCELADO la modificacion del salario.\n\n");
+								system("pause");
+							}
+
+							break;
+
+
+					case 4:
+							getInt (&preSector, "Ingrese el NUEVO SECTOR: ", "Error. Reingrese un sector válido (1-8): ", 1 , 8 );
+							auxEmployee = employee[indexSearch];
+							auxEmployee.sector = preSector;
+
+							if ( confirmation (auxEmployee) == 0)
+							{
+								employee[indexSearch].sector = preSector;
+								printf("\nSECTOR modificado exitosamente!\n\n");
+								system ("pause");
+							}
+							else
+							{
+								printf("\nUsted ha CANCELADO la modificacion del sector.\n\n");
+								system("pause");
+							}
+
+							break;
+
+					case 5:
+							printf("\nSaliendo del submenú del modificaciones...\n\n");
+							break;
+					}
+
+				}while(optionSubMenu != 5);
+
+				break;
+
+
+
+		//BAJA
 		case 3:
 				if (flag == 1)
 				{
@@ -150,22 +286,43 @@ int main(void) {
 
 						else
 						{
-							printf("\nUsted ha CANCELADO la baja!\n");
+							printf("\nUsted ha CANCELADO la baja!\n\n");
 							system("pause");
 						}
 				}
 
 				else
 				{
-					printf("\nPara acceder a todas las funciones debe dar de ALTA por lo menos a un empleado!\n");
+					printf("\nPara acceder a todas las funciones debe dar de ALTA por lo menos a un empleado!\n\n");
+					system ("pause");
 				}
 
 				break;
+
+
+		//INFORMES
+		case 4:
+				printf("\nPara ver la lista de empleados ordenada de forma creciente ingrese 1 , para verla de forma decreciente ingrese 0: ");
+				fflush(stdin);
+				scanf("%d", &order);
+
+				sortEmployees(employee, ELEMENTS, order);
+				printf("\n1. Listado de los empleados ordenados alfabéticamente por Apellido y Sector: \n");
+				printEmployees(employee , ELEMENTS);
+
+				break;
+
+
+
+
 		}
 
 
 
 	}while (option != 5);
+
+
+	printEmployees(employee , ELEMENTS);
 
 	return 0;
 }
