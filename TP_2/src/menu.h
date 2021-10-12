@@ -10,6 +10,7 @@
 
 
 int confirmation (Employee aux);
+int mainMenu (Employee* list , int len , int lastIdentification);
 
 
 
