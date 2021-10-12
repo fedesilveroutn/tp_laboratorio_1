@@ -32,7 +32,7 @@ carga de algún empleado.
 #include "ArrayEmployees.h"
 #include "input.h"
 #include "menu.h"
-#define ELEMENTS 5
+#define ELEMENTS 10
 #define UP 1
 #define DOWN 0
 #define ID 1000
@@ -91,7 +91,7 @@ int main(void) {
 
 		switch (option)
 		{
-		//ALTA
+
 		case 1:
 				printf("\nDando de alta un empleado...");
 
@@ -131,7 +131,7 @@ int main(void) {
 
 
 
-		//MODIFICACION
+
 		case 2:
 				printf("\n%-10s %-20s %-20s %-20s %-20s\n", "ID" , "Nombre", "Apellido" , "Salario" , "Sector");
 
@@ -261,7 +261,7 @@ int main(void) {
 
 
 
-		//BAJA
+
 		case 3:
 				if (flag == 1)
 				{
@@ -305,7 +305,7 @@ int main(void) {
 				break;
 
 
-		//INFORMES
+
 		case 4:
 
 			if( flag == 1)
@@ -346,7 +346,8 @@ int main(void) {
 
 				printf("\nEl total de los salarios es: %.2f", fullSalary);
 				printf("\nEl promedio de los salarios es: %.2f", salaryAverage);
-				printf("\nLa cantidad de empleados que superan el salario promedio son: %d", overAverage);
+				printf("\nLa cantidad de empleados que superan el salario promedio son: %d\n", overAverage);
+				system("pause");
 
 
 				break;
@@ -365,132 +366,3 @@ int main(void) {
 
 	return 0;
 }
-
-
-
-
-
-
-/*
-	//Para testear initEmployees---------------------------------------------------
-	initEmployees (employee , ELEMENTS);
-	for( i = 0; i < ELEMENTS; i++)
-	{
-		printf("Employee %d estado: %d\n" , i , employee[i].isEmpty);
-	}
-	//Fin testing------------------------------------------------------------------
-
-
-
-
-	//Para testear addEmployee------------------------------------------------------
-	addEmployee (&employee[0], ELEMENTS, 1000 , "Melissa","Brizuela", 12500.83 , 1);
-	addEmployee (&employee[1], ELEMENTS, 1001 , "Valentin","Silvero", 13000.57 , 2);
-	addEmployee (&employee[2], ELEMENTS, 1002 , "Federico","Silvero", 18600.57 , 4);
-	addEmployee (&employee[3], ELEMENTS, 1003 , "Constanza","Arancio", 12000.50 , 3);
-	addEmployee (&employee[4], ELEMENTS, 1004 , "JuanPaulo","Scallise", 12800.50 , 4);
-
-	printf("\nEmpleado %s %s dado de alta exitosamente!\n", employee[0].name, employee[0].lastName);
-	printf("Empleado %s %s dado de alta exitosamente!\n", employee[1].name, employee[1].lastName);
-	printf("Empleado %s %s dado de alta exitosamente!\n", employee[2].name, employee[2].lastName);
-	printf("Empleado %s %s dado de alta exitosamente!\n", employee[3].name, employee[3].lastName);
-	printf("Empleado %s %s dado de alta exitosamente!\n", employee[4].name, employee[4].lastName);
-
-
-
-	for (i = 0; i < ELEMENTS; i++)
-	{
-		printf("\n%-5s %-20s %-20s %-20s %-20s\n", "ID" , "Nombre", "Apellido" , "Salario" , "Sector");
-		printf("%-5d %-20s %-20s %-20.2f %-20d\n", employee[i].id,
-												   employee[i].name,
-												   employee[i].lastName,
-												   employee[i].salary,
-												   employee[i].sector);
-	}
-	//Fin testing------------------------------------------------------------------
-
-
-
-
-
-	//Para testear findEmployeeById------------------------------------------------
-	index = findEmployeeById(employee, ELEMENTS , 1004);
-	printf("\nINDEX cargado con: %d\n", index);
-	printf("\nID: %d\nName: %s\nLastName: %s\nSalary: %.2f\nSector: %d",
-			employee[index].id,
-			employee[index].name,
-			employee[index].lastName,
-			employee[index].salary,
-			employee[index].sector);
-	//Fin testing------------------------------------------------------------------
-
-
-
-
-	//Para testear removeEmployee
-	removeEmployee (employee , ELEMENTS , 1002);
-	removeEmployee (employee , ELEMENTS , 1004);
-	//Fin testing------------------------------------------------------------------
-
-
-
-
-	//Para testear sortEmployee
-	sortEmployees(employee, ELEMENTS, UP);
-	printf("Los empleados han sido ordenados exitosamente!\n");
-
-
-
-
-	printf("\nOrdenamiento creciente:\n");
-	for (i = 0; i < ELEMENTS; i++)
-		{
-				if (employee[i].isEmpty == FALSE)
-				{
-					printf("\n%-5s %-20s %-20s %-20s %-20s\n", "ID" , "Nombre", "Apellido" , "Salario" , "Sector");
-					printf("%-5d %-20s %-20s %-20.2f %-20d\n", employee[i].id,
-													   	   employee[i].name,
-														   employee[i].lastName,
-														   employee[i].salary,
-														   employee[i].sector);
-				}
-		}
-
-	sortEmployees(employee, ELEMENTS, DOWN);
-	printf("\nOrdenamiento decreciente:\n");
-
-	for (i = 0; i < ELEMENTS; i++)
-		{
-			if (employee[i].isEmpty == FALSE)
-			{
-				printf("\n%-5s %-20s %-20s %-20s %-20s\n", "ID" , "Nombre", "Apellido" , "Salario" , "Sector");
-				printf("%-5d %-20s %-20s %-20.2f %-20d\n", employee[i].id,
-													   	   employee[i].name,
-														   employee[i].lastName,
-														   employee[i].salary,
-														   employee[i].sector);
-			}
-		}
-	//Fin testing------------------------------------------------------------------
-
-
-
-	//Para testear printEmployee---------------------------------------------------
-	printf("\nFUNCION DE MOSTRAR: \n");
-	printEmployees(employee , ELEMENTS);
-	//Fin testing------------------------------------------------------------------
-
-
-
-
-	//Para testear INPUTS----------------------------------------------------------
-	getInt(&num , "Ingrese un numero: ", "Error.Reingrese numero: ", 0, 10);
-	printf("\nNumero ingresado: %d", num);
-	getFloat(&numFloat , "Ingrese un numero flotante: ", "Error.Reingrese numero flotante: ", 0, 10);
-	printf("\nNumero ingresado: %.2f", numFloat);
-	getChar(&letter , "Ingrese un caracter: ", "Error.Reingrese caracter: ", 'A', 'z');
-	printf("\nCaracter ingresado: %c", letter);
-	getString(name , "Ingrese un nombre: ", "Error.Reingrese nombre: ", 51);
-	printf("\nNombre ingresado: %s", name);
-	//Fin testing------------------------------------------------------------------
-	*/

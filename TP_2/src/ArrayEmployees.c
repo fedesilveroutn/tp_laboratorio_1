@@ -173,6 +173,7 @@ int sortEmployees(Employee* list, int len, int order)
 	{
 		if (order == UP)
 		{
+
 			newLimit = len - 1;
 
 			do{
@@ -194,6 +195,31 @@ int sortEmployees(Employee* list, int len, int order)
 				newLimit--;
 
 			}while(swap==1);
+
+
+
+			newLimit = len - 1;
+			do
+			{
+				swap = 0;
+
+				for (i = 0; i < newLimit; i++)
+				{
+					if (list[i].isEmpty == FALSE)
+					{
+						if (list[i].sector > list[i + 1].sector )
+						{
+							aux = list[i];
+							list[i] = list[i + 1];
+							list[i + 1] = aux;
+							swap = 1;
+						}
+					}
+				}
+				newLimit--;
+
+			}while(swap == 1);
+
 		}
 
 		else if ( order == DOWN)
@@ -219,6 +245,31 @@ int sortEmployees(Employee* list, int len, int order)
 				newLimit--;
 
 			}while(swap==1);
+
+
+			newLimit = len - 1;
+
+			do
+			{
+				swap = 0;
+
+				for (i = 0; i < newLimit; i++)
+				{
+					if (list[i].isEmpty == FALSE)
+					{
+						if (list[i].sector < list[i + 1].sector )
+						{
+							aux = list[i];
+							list[i] = list[i + 1];
+							list[i + 1] = aux;
+							swap = 1;
+						}
+					}
+				}
+				newLimit--;
+
+			}while(swap == 1);
+
 		}
 
 		ret = 0;
