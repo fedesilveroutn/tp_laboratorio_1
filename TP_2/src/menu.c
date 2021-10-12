@@ -44,7 +44,15 @@ int confirmation (Employee aux)
 }
 
 
-
+/**
+ * @fn int mainMenu(Employee*, int, int)
+ * @brief contains all the program and all possible options to interact with
+ *
+ * @param list Employee*
+ * @param len int
+ * @param lastIdentification int
+ * @return 0 if it worked ok
+ */
 int mainMenu (Employee* list , int len , int lastIdentification)
 {
 	Employee auxEmployee;
