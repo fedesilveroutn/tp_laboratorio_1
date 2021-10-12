@@ -60,6 +60,11 @@ int main(void) {
 	int optionSubMenu;
 	int order;
 
+	float fullSalary = 0;
+	int salaryAccountant = 0;
+	float salaryAverage;
+	int overAverage = 0;;
+
 	initEmployees (employee, ELEMENTS);
 
 	do
@@ -302,27 +307,61 @@ int main(void) {
 
 		//INFORMES
 		case 4:
+
+			if( flag == 1)
+			{
 				printf("\nPara ver la lista de empleados ordenada de forma creciente ingrese 1 , para verla de forma decreciente ingrese 0: ");
 				fflush(stdin);
 				scanf("%d", &order);
 
 				sortEmployees(employee, ELEMENTS, order);
-				printf("\n1. Listado de los empleados ordenados alfabéticamente por Apellido y Sector: \n");
+				printf("\n1. Listado de los empleados ordenados alfabéticamente por Apellido y Sector: \n"
+						"----------------------------------------------------------------------------------------\n");
 				printEmployees(employee , ELEMENTS);
+				printf("\n----------------------------------------------------------------------------------------\n");
+
+				///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+				for (int i = 0; i < ELEMENTS; i++)
+				{
+					if (employee[i].isEmpty == FALSE)
+					{
+						fullSalary += employee[i].salary;
+						salaryAccountant++;
+					}
+				}
+
+				salaryAverage = fullSalary / salaryAccountant;
+				for (int i = 0; i < ELEMENTS; i++)
+				{
+					if (employee[i].isEmpty == FALSE)
+					{
+						if (employee[i].salary > salaryAverage)
+						{
+							overAverage++;
+						}
+
+					}
+				}
+
+				printf("\nEl total de los salarios es: %.2f", fullSalary);
+				printf("\nEl promedio de los salarios es: %.2f", salaryAverage);
+				printf("\nLa cantidad de empleados que superan el salario promedio son: %d", overAverage);
+
 
 				break;
+			}
 
-
-
+			else
+			{
+				printf("\nPara acceder a todas las funciones debe dar de ALTA por lo menos a un empleado!\n\n");
+				system ("pause");
+			}
 
 		}
 
-
-
 	}while (option != 5);
 
-
-	printEmployees(employee , ELEMENTS);
 
 	return 0;
 }
