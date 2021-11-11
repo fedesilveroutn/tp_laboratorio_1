@@ -37,13 +37,24 @@ int main()
 	char* name = NULL;
 	name = (char*) malloc (sizeof(char));
 
+	int* workedHours = NULL;
+	workedHours = (int*) malloc (sizeof (int));
+
+	int* salary = NULL;
+	salary = (int*) malloc (sizeof(int));
+
+
 	employee_setId(employee, 1005);
 	employee_setNombre(employee, "Constanza");
+	employee_setHorasTrabajadas(employee, 24);
+	employee_setSueldo(employee, 35000);
 
 	employee_getNombre(employee, name);
 	employee_getId(employee, id);
+	employee_getHorasTrabajadas(employee, workedHours);
+	employee_getSueldo(employee, salary);
 
-	printf("\nEl nombre es: %s - El ID es: %d", name , *id);
+	printf("\nEl nombre es: %s - El ID es: %d - Las horas trabajadas son: %d - El salario es: %d", name , *id , *workedHours, *salary);
 	//FIN TEST
 
 

@@ -124,3 +124,84 @@ int employee_getNombre(Employee* this,char* nombre)
 	return ret;
 }
 
+
+//FUNCIONA
+/**
+ * @brief asigna las HORAS TRABAJADAS recibidas, al campo horasTrabajadas de la estructura Employeee
+ * @param this
+ * @param horasTrabajadas
+ * @return
+ */
+int employee_setHorasTrabajadas(Employee* this,int horasTrabajadas)
+{
+	int ret = -1;
+	if (this != NULL)
+	{
+		this->horasTrabajadas = horasTrabajadas;
+		ret = 0;
+	}
+	return ret;
+}
+
+
+//FUNCIONA
+/**
+ * @brief guarda las HORAS TRABAJADAS del campo de la estructura Employee, en el puntero que se pasa como segundo parámetro
+ * @param this
+ * @param horasTrabajadas
+ * @return
+ */
+int employee_getHorasTrabajadas(Employee* this,int* horasTrabajadas)
+{
+	int ret = -1;
+	if (this != NULL && horasTrabajadas != NULL)
+	{
+		*horasTrabajadas = this->horasTrabajadas;
+		ret = 0;
+	}
+	return ret;
+}
+
+
+//FUNCIONA
+/**
+ * @brief asigna el SUELDO recibido, al campo sueldo de la estructura Employeee
+ * @param this
+ * @param sueldo
+ * @return
+ */
+int employee_setSueldo(Employee* this,int sueldo)
+{
+	int ret = -1;
+	if(this != NULL)
+	{
+		this->sueldo = sueldo;
+		ret = 0;
+	}
+	return ret;
+}
+
+
+
+//FUNCIONA
+/**
+ * @brief guarda el SUELDO del campo de la estructura Employee, en el puntero que se pasa como segundo parámetro
+ * @param this
+ * @param sueldo
+ * @return
+ */
+int employee_getSueldo(Employee* this,int* sueldo)
+{
+	int ret = -1;
+	if(this != NULL)
+	{
+		*sueldo = this->sueldo;
+		ret = 0;
+	}
+	return ret;
+}
+
+
+
+
+
