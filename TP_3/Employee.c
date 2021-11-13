@@ -217,7 +217,7 @@ int employee_sortById (void* pointer1 , void* pointer2)
 
 		if (auxId1 < auxId2)
 		{
-			ret = 0;
+			ret = -1;
 		}
 
 		else if (auxId1 > auxId2)
@@ -227,7 +227,7 @@ int employee_sortById (void* pointer1 , void* pointer2)
 
 		else if (auxId1 == auxId2)
 		{
-			ret = -1;
+			ret = -2;
 		}
 	}
 	return ret;
@@ -268,7 +268,7 @@ int employee_sortByHours (void* pointer1 , void* pointer2)
 
 		if (auxHours1 < auxHours2)
 		{
-			ret = 0;
+			ret = -1;
 		}
 
 		else if (auxHours1 > auxHours2)
@@ -278,7 +278,7 @@ int employee_sortByHours (void* pointer1 , void* pointer2)
 
 		else if (auxHours1 == auxHours2)
 		{
-			ret = -1;
+			ret = -2;
 		}
 	}
 
@@ -301,7 +301,7 @@ int employee_sortBySalary(void* pointer1 , void* pointer2)
 
 		if (auxSalary1 < auxSalary2)
 		{
-			ret = 0;
+			ret = -1;
 		}
 
 		else if (auxSalary1 > auxSalary2)
@@ -311,10 +311,11 @@ int employee_sortBySalary(void* pointer1 , void* pointer2)
 
 		else if (auxSalary1 == auxSalary2)
 		{
-			ret = -1;
+			ret = 0;
 		}
 
 	}
+
 	return ret;
 }
 
