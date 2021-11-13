@@ -150,6 +150,25 @@ void getString (char* string, char* message, char* errorMessage, int max)
 
 
 
+/**
+ * @fn int systemPause(char*)
+ * @brief pausa la ejecucion del programa momentaneamente hasta que el usuario presione alguna tecla
+ *
+ * @param message recibe un mensaje para ser mostrado al usuario
+ * @return retonra 0 si funcionó y -1 si hubo error
+ */
+int systemPause(char* message)
+{
+	int ret=-1;
+	if(message!=NULL)
+	{
+		fflush(stdin);
+		printf("\n%s",message);
+		getchar();
+		ret=0;
+	}
+	return ret;
+}
 
 
 

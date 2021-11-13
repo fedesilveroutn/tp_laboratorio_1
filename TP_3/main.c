@@ -25,54 +25,15 @@ int main()
 {
 	setbuf(stdout, NULL);
 
-    //int option = 0;
-    //LinkedList* listaEmpleados = ll_newLinkedList();
+    int option = 0;
+    int flag = 0;
 
-	//TEST
-	Employee* employee = employee_new();
+    LinkedList* listaEmpleados = ll_newLinkedList();//COMENTARIO A BORRAR: puntero a array de empleados
 
-	int* id = NULL;
-	id = (int*) malloc (sizeof(int));
-
-	char* name = NULL;
-	name = (char*) malloc (sizeof(char));
-
-	int* workedHours = NULL;
-	workedHours = (int*) malloc (sizeof (int));
-
-	int* salary = NULL;
-	salary = (int*) malloc (sizeof(int));
-
-
-	employee_setId(employee, 1005);
-	employee_setNombre(employee, "Constanza");
-	employee_setHorasTrabajadas(employee, 24);
-	employee_setSueldo(employee, 35000);
-
-	employee_getNombre(employee, name);
-	employee_getId(employee, id);
-	employee_getHorasTrabajadas(employee, workedHours);
-	employee_getSueldo(employee, salary);
-
-	printf("\nEl nombre es: %s - El ID es: %d - Las horas trabajadas son: %d - El salario es: %d", name , *id , *workedHours, *salary);
-	//FIN TEST
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*do{
+    do{
 
     	getInt (&option,
-				 "\n-------------------------------------------------------------------------------\n"
+				 "\n------------------------------------MENU----------------------------------------\n"
 				 "\n1. Cargar los datos de los empleados desde el archivo data.csv (modo texto)."
 				 "\n2. Cargar los datos de los empleados desde el archivo data.csv (modo binario)."
 				 "\n3. Alta de empleado"
@@ -86,7 +47,7 @@ int main()
 				 "\n-------------------------------------------------------------------------------\n"
 				 "Ingrese una opcion (1 - 10): ",
 				 "\nERROR!\n"
-				 "\n-------------------------------------------------------------------------------\n"
+				 "\n------------------------------------MENU----------------------------------------\n"
 				 "\n1. Cargar los datos de los empleados desde el archivo data.csv (modo texto)."
 				 "\n2. Cargar los datos de los empleados desde el archivo data.csv (modo binario)."
 				 "\n3. Alta de empleado"
@@ -103,11 +64,134 @@ int main()
         switch(option)
         {
             case 1:
-                controller_loadFromText("data.csv",listaEmpleados);
-                break;
+					if (!controller_loadFromText("data.csv", listaEmpleados) )
+					{
+						printf("\n*****ARCHIVO LEIDO EXITOSAMENTE!*****\n");
+						systemPause("Presione enter para continuar...\n");
+						flag = 1;
+					}
+
+					else
+					{
+						printf("\nERROR. NO SE HA PODIDO LEER EL ARCHIVO!");
+						systemPause("\nPresione enter para continuar...\n");
+					}
+
+					break;
+
+            case 2:
+					controller_loadFromBinary("data.csv", listaEmpleados);
+					flag = 1;
+					break;
+
+            case 3:
+					if (flag)
+					{
+						controller_addEmployee(listaEmpleados);
+					}
+
+					else
+					{
+						printf("\nERROR. ACCESO DENEGADO. DEBE CARGAR LOS DATOS DE LOS EMPLEADOS PREVIAMENTE!");
+						systemPause("\nPresione enter para continuar...\n");
+					}
+					break;
+
+            case 4:
+					if(flag)
+					{
+						controller_editEmployee(listaEmpleados);
+					}
+
+					else
+					{
+						printf("\nERROR. ACCESO DENEGADO. DEBE CARGAR LOS DATOS DE LOS EMPLEADOS PREVIAMENTE!");
+						systemPause("\nPresione enter para continuar...\n");
+					}
+					break;
+
+            case 5:
+					if(flag)
+					{
+						controller_removeEmployee(listaEmpleados);
+					}
+
+					else
+					{
+						printf("\nERROR. ACCESO DENEGADO. DEBE CARGAR LOS DATOS DE LOS EMPLEADOS PREVIAMENTE!");
+						systemPause("\nPresione enter para continuar...\n");
+					}
+					break;
+
+            case 6:
+					if(flag)
+					{
+						printf("\nListando empleados...\n");
+						controller_ListEmployee(listaEmpleados);
+						systemPause("\nPresione enter para continuar...\n");
+					}
+
+					else
+					{
+						printf("\nERROR. ACCESO DENEGADO. DEBE CARGAR LOS DATOS DE LOS EMPLEADOS PREVIAMENTE!");
+						systemPause("\nPresione enter para continuar...\n");
+					}
+					break;
+
+            case 7:
+					if(flag)
+					{
+						controller_sortEmployee(listaEmpleados);
+					}
+
+					else
+					{
+						printf("\nERROR. ACCESO DENEGADO. DEBE CARGAR LOS DATOS DE LOS EMPLEADOS PREVIAMENTE!");
+						systemPause("\nPresione enter para continuar...\n");
+					}
+					break;
+
+            case 8:
+					if(flag)
+					{
+						if ( controller_saveAsText("data.csv", listaEmpleados) )
+						{
+							printf("\n*****DATOS GUARDADOS (MODO TEXTO) EXITOSAMENTE!*****");
+							systemPause("\nPresione enter para continuar...\n");
+						}
+
+						else
+						{
+							printf("\nERROR. NO SE HAN PODIDO GUARDAR LOS DATOS EN MODO TEXTO!");
+							systemPause("\nPresione enter para continuar...\n");
+						}
+					}
+
+					else
+					{
+						printf("\nERROR. ACCESO DENEGADO. DEBE CARGAR LOS DATOS DE LOS EMPLEADOS PREVIAMENTE!");
+						systemPause("\nPresione enter para continuar...\n");
+					}
+					break;
+
+            case 9:
+					if(flag)
+					{
+						controller_saveAsBinary("data.csv", listaEmpleados);
+					}
+
+					else
+					{
+						printf("\nERROR. ACCESO DENEGADO. DEBE CARGAR LOS DATOS DE LOS EMPLEADOS PREVIAMENTE!");
+					}
+					break;
+
+            case 10:
+            		printf("\nSaliendo del programa...");
+            		break;
         }
 
-    }while(option != 10);*/
+    }while(option != 10);
 
     return 0;
 }

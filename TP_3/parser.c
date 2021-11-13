@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "LinkedList.h"
 #include "Employee.h"
+#include "parser.h"
 
 /** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo texto).
  *
@@ -12,8 +13,28 @@
  */
 int parser_EmployeeFromText(FILE* pFile , LinkedList* pArrayListEmployee)
 {
+	char auxId[51];
+	char auxName[128];
+	char auxHours[51];
+	char auxSalary[51];
+	int ret = 1;
 
-    return 1;
+	if (pFile != NULL && pArrayListEmployee != NULL)
+	{
+		fscanf(pFile, "%[^,], %[^,], %[^,], %[^\n]\n", auxId, auxName, auxHours, auxSalary);
+		while (!feof(pFile))
+		{
+			fscanf(pFile, "%[^,], %[^,], %[^,], %[^\n]\n", auxId, auxName, auxHours, auxSalary);
+			Employee* auxEmployee = employee_newParametros(auxId, auxName, auxHours, auxSalary);
+			ll_add(pArrayListEmployee, auxEmployee);
+		}
+
+		if (feof (pFile))
+		{
+			ret = 0;
+		}
+	}
+    return ret;
 }
 
 /** \brief Parsea los datos los datos de los empleados desde el archivo data.csv (modo binario).
