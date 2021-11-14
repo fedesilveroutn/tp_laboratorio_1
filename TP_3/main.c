@@ -188,7 +188,17 @@ int main()
             case 9:
 					if(flag)
 					{
-						controller_saveAsBinary("data.csv", listaEmpleados);
+						if (controller_saveAsBinary("data.csv", listaEmpleados) )
+						{
+							saveLastIdToTxt(lastIdMain);
+							printf("\n*****DATOS GUARDADOS (MODO TEXTO) EXITOSAMENTE!*****");
+							systemPause("\nPresione enter para continuar...\n");
+						}
+						else
+						{
+							printf("\nERROR. NO SE HAN PODIDO GUARDAR LOS DATOS EN MODO BINARIO!");
+							systemPause("\nPresione enter para continuar...\n");
+						}
 					}
 
 					else
@@ -203,6 +213,8 @@ int main()
         }
 
     }while(option != 10);
+
+    printf("\nFIN DEL PROGRAMA.");
 
     return 0;
 }

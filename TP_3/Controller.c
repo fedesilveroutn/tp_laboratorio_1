@@ -359,6 +359,40 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
  */
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 {
-    return 1;
+	Employee* auxEmployee = NULL;
+	FILE* pFile;
+	int ret = 0;
+	int len;
+	int i;
+
+	int auxId;
+	char auxName[128];
+	int auxHours;
+	int auxSalary;
+
+	if(path != NULL && pArrayListEmployee != NULL)
+	{
+		pFile = fopen (path, "wb");
+		len = ll_len(pArrayListEmployee);
+		if (pFile != NULL)
+		{
+			fwrite(auxEmployee, sizeof(Employee), 1 , pFile );
+
+			for(i = 0; i < len; i++)
+			{
+				Employee* auxEmployee = (Employee*) ll_get (pArrayListEmployee , i );
+				employee_getId(auxEmployee, &auxId);
+				employee_getNombre(auxEmployee, auxName);
+				employee_getHorasTrabajadas(auxEmployee, &auxHours);
+				employee_getSueldo(auxEmployee, &auxSalary);
+				fwrite(auxEmployee, sizeof(Employee), 1 , pFile );
+			}
+
+			ret = 1;
+		}
+		fclose (pFile);
+		pFile = NULL;
+	}
+	return ret;
 }
 
