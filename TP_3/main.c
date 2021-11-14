@@ -69,8 +69,17 @@ int main()
 					break;
 
             case 2:
-					controller_loadFromBinary("data.csv", listaEmpleados);
-					flag = 1;
+            		if (flag)
+            		{
+						controller_loadFromBinary("data.csv", listaEmpleados);
+						printf("\n*****ARCHIVO LEIDO (MODO BINARIO) EXITOSAMENTE!*****\n");
+            		}
+
+            		else
+					{
+						printf("\nERROR. ACCESO DENEGADO. DEBE CARGAR LOS DATOS DE LOS EMPLEADOS (MODO TEXTO) PREVIAMENTE!");
+						systemPause("\nPresione enter para continuar...\n");
+					}
 					break;
 
             case 3:
