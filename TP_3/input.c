@@ -170,22 +170,6 @@ int systemPause(char* message)
 	return ret;
 }
 
-int createLastIdTxt ()
-{
-	FILE* pFile = NULL;
-	int ret = 0;
-
-	pFile = fopen ("lastId.txt", "w");
-	if (pFile != NULL)
-	{
-		fprintf(pFile, "%d\n" , 1000);
-		ret = 1;
-	}
-
-	fclose(pFile);
-	pFile = NULL;
-	return ret;
-}
 
 
 int getLastIdFromTxt ()
@@ -213,3 +197,23 @@ int getLastIdFromTxt ()
 	pFile = NULL;
 	return idFound;
 }
+
+
+
+int saveLastIdToTxt (int lastIdFromMain)
+{
+	FILE* pFile = NULL;
+	int ret = 1;
+	pFile = fopen("lastId.txt", "w");
+	if (pFile != NULL)
+	{
+		fprintf(pFile, "%d\n", lastIdFromMain );
+		ret = 0;
+	}
+	return ret;
+}
+
+
+
+
+

@@ -14,8 +14,8 @@ int getFloat (float* num, char* message, char* errorMessage, int min, int max);
 int getChar (char* c , char* message, char* errorMessage, char min, char max);
 void getString (char* string, char* message, char* errorMessage, int max);
 int systemPause(char* message);
-int createLastIdTxt ();
 int getLastIdFromTxt ();
+int saveLastIdToTxt (int lastIdFromMain);
 
 
 #endif /* INPUT_H_ */

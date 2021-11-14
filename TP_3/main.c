@@ -13,7 +13,6 @@ int main()
     int flag = 0;
     int lastIdMain;
 
-    createLastIdTxt();
     lastIdMain = getLastIdFromTxt();
 
     printf("LAST ID FROM TXT: %d", lastIdMain);
@@ -150,8 +149,8 @@ int main()
 					{
 						if ( controller_saveAsText("data.csv", listaEmpleados) )
 						{
+							saveLastIdToTxt(lastIdMain);
 							printf("\n*****DATOS GUARDADOS (MODO TEXTO) EXITOSAMENTE!*****");
-							//lastId();
 							systemPause("\nPresione enter para continuar...\n");
 						}
 
