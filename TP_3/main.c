@@ -15,8 +15,6 @@ int main()
 
     lastIdMain = getLastIdFromTxt();
 
-    printf("LAST ID FROM TXT: %d", lastIdMain);
-
     LinkedList* listaEmpleados = ll_newLinkedList();
 
     do{
@@ -188,10 +186,10 @@ int main()
             case 9:
 					if(flag)
 					{
-						if (controller_saveAsBinary("data.csv", listaEmpleados) )
+						if (controller_saveAsBinary("dataBinary.csv", listaEmpleados) )
 						{
 							saveLastIdToTxt(lastIdMain);
-							printf("\n*****DATOS GUARDADOS (MODO TEXTO) EXITOSAMENTE!*****");
+							printf("\n*****DATOS GUARDADOS (MODO BINARIO) EXITOSAMENTE!*****");
 							systemPause("\nPresione enter para continuar...\n");
 						}
 						else
