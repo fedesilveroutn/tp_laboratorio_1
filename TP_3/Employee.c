@@ -370,10 +370,11 @@ int employee_confirmacion(Employee* employee)
 }
 
 
-
-
-
-
+void employee_delete(Employee* this)
+{
+	free(this);
+	this = NULL;
+}
 
 
 

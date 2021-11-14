@@ -4,6 +4,7 @@
 #include "Employee.h"
 #include "parser.h"
 #include "input.h"
+#include "Controller.h"
 
 
 /** \brief Carga los datos de los empleados desde el archivo data.csv (modo texto).
@@ -84,7 +85,71 @@ int controller_addEmployee(LinkedList* pArrayListEmployee, int lastIdFromMain)
  */
 int controller_editEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
+	int ret = 0;
+	int option;
+	int i;
+
+	int len;
+	int auxId;
+	int idFromEmployee;
+	char auxName[128];
+	int auxHours;
+	int auxSalary;
+	Employee* auxEmployee = NULL;
+
+	if (pArrayListEmployee != NULL)
+	{
+		len = ll_len(pArrayListEmployee);
+
+		controller_ListEmployee(pArrayListEmployee);
+		printf("\nIngrese el ID correspondiente al empleado que desea modificar: ");
+		fflush(stdin);
+		scanf("%d", &auxId);
+		for (i = 0; i < len; i++)
+		{
+			auxEmployee = ll_get(pArrayListEmployee, i);
+			employee_getId(auxEmployee, &idFromEmployee);
+			if (auxId == idFromEmployee)
+			{
+				getInt(&option, "\n------------------------------------------------------------\n"
+								"\n1. Modificar nombre"
+								"\n2. Modificar horas trabajadas"
+								"\n3. Modificar sueldo"
+								"\n------------------------------------------------------------\n"
+								"\nIngrese la opcion a modificar (1-3): ",
+								 "\n------------------------------------------------------------\n"
+								"\n1. Modificar nombre"
+								"\n2. Modificar horas trabajadas"
+								"\n3. Modificar sueldo"
+								"\n------------------------------------------------------------\n"
+								"\nERROR. Reingrese una opcion valida (1-3): ", 1 , 3 );
+				switch (option)
+				{
+					case 1:
+							getString(auxName, "\nIngrese el nuevo nombre: ", "\nERROR. Reingrese un nombre valido (hasta 127 caracteres): ", 127);
+							employee_setNombre(auxEmployee, auxName);
+							ll_set(pArrayListEmployee, i, auxEmployee);
+							break;
+
+					case 2:
+							getInt(&auxHours, "\nIngrese la nueva cantidad de horas: ", "\nERROR. Reingrese cantidad valida (hasta 10000): ", 0 , 10000);
+							employee_setHorasTrabajadas(auxEmployee, auxHours);
+							ll_set(pArrayListEmployee, i, auxEmployee);
+							break;
+
+					case 3:
+							getInt(&auxSalary, "\nIngrese el nuevo salario: ", "\nERROR. Reingrese un monto valido (1000-1000000): ", 1000 , 1000000);
+							employee_setSueldo(auxEmployee, auxSalary);
+							ll_set(pArrayListEmployee, i, auxEmployee);
+							break;
+				}
+
+				ret = 1;
+			}
+		}
+	}
+
+    return ret;
 }
 
 /** \brief Baja de empleado
@@ -96,7 +161,35 @@ int controller_editEmployee(LinkedList* pArrayListEmployee)
  */
 int controller_removeEmployee(LinkedList* pArrayListEmployee)
 {
-    return 1;
+	Employee* auxEmployee = NULL;
+	int idFromEmployee;
+	int auxId;
+	int len;
+	int i;
+	int ret = 0;
+
+	if (pArrayListEmployee != NULL)
+	{
+		len = ll_len(pArrayListEmployee);
+		controller_ListEmployee(pArrayListEmployee);
+		printf("\nIngrese el ID correspondiente al empleado que desea dar de baja: ");
+		fflush(stdin);
+		scanf("%d", &auxId);
+
+		for (i = 0; i < len; i++)
+		{
+			auxEmployee = ll_get(pArrayListEmployee, i);
+			employee_getId(auxEmployee, &idFromEmployee);
+			if (auxId == idFromEmployee)
+			{
+				ll_remove(pArrayListEmployee, i);
+				employee_delete(auxEmployee);
+			}
+		}
+		ret = 1;
+	}
+
+    return ret;
 }
 
 /** \brief Listar empleados

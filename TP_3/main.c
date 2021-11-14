@@ -106,7 +106,15 @@ int main()
             case 5:
 					if(flag)
 					{
-						controller_removeEmployee(listaEmpleados);
+						if ( controller_removeEmployee(listaEmpleados) )
+						{
+							printf("\n*****EMPLEADO DADO DE BAJA EXITOSAMENTE!*****");
+						}
+
+						else
+						{
+							printf("\nERROR. NO FUE POSIBLE REALIZAR LA BAJA DEL EMPLEADO!");
+						}
 					}
 
 					else
