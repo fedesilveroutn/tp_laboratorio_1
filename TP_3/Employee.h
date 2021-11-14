@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "input.h"
 #define employee_H_INCLUDED
 typedef struct
 {
@@ -33,5 +34,7 @@ int employee_sortById (void* pointer1 , void* pointer2);
 int employee_sortByHours (void* pointer1 , void* pointer2);
 int employee_sortBySalary(void* pointer1 , void* pointer2);
 
+Employee* employee_add (int lastIdFromMain);
+int employee_confirmacion(Employee* employee);
 
 #endif // employee_H_INCLUDED

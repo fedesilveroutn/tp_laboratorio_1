@@ -5,30 +5,20 @@
 #include "Employee.h"
 #include "input.h"
 
-/****************************************************
-    Menu:
-     1. Cargar los datos de los empleados desde el archivo data.csv (modo texto).
-     2. Cargar los datos de los empleados desde el archivo data.csv (modo binario).
-     3. Alta de empleado
-     4. Modificar datos de empleado
-     5. Baja de empleado
-     6. Listar empleados
-     7. Ordenar empleados
-     8. Guardar los datos de los empleados en el archivo data.csv (modo texto).
-     9. Guardar los datos de los empleados en el archivo data.csv (modo binario).
-    10. Salir
-*****************************************************/
-
-
-
 int main()
 {
 	setbuf(stdout, NULL);
 
     int option = 0;
     int flag = 0;
+    int lastIdMain;
 
-    LinkedList* listaEmpleados = ll_newLinkedList();//COMENTARIO A BORRAR: puntero a array de empleados
+    createLastIdTxt();
+    lastIdMain = getLastIdFromTxt();
+
+    printf("LAST ID FROM TXT: %d", lastIdMain);
+
+    LinkedList* listaEmpleados = ll_newLinkedList();
 
     do{
 
@@ -87,7 +77,11 @@ int main()
             case 3:
 					if (flag)
 					{
-						controller_addEmployee(listaEmpleados);
+						if ( controller_addEmployee(listaEmpleados, lastIdMain) )
+						{
+							lastIdMain++;
+						}
+						systemPause("\nPresione enter para continuar...\n");
 					}
 
 					else
@@ -157,6 +151,7 @@ int main()
 						if ( controller_saveAsText("data.csv", listaEmpleados) )
 						{
 							printf("\n*****DATOS GUARDADOS (MODO TEXTO) EXITOSAMENTE!*****");
+							//lastId();
 							systemPause("\nPresione enter para continuar...\n");
 						}
 

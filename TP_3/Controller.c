@@ -50,18 +50,29 @@ int controller_loadFromBinary(char* path , LinkedList* pArrayListEmployee)
  * \return int
  *
  */
-int controller_addEmployee(LinkedList* pArrayListEmployee)
+int controller_addEmployee(LinkedList* pArrayListEmployee, int lastIdFromMain)
 {
-	FILE* pFile;
+	Employee* auxEmployee = NULL;
+	int ret = 0;
 
+	if(pArrayListEmployee != NULL)
+	{
+		auxEmployee = employee_add(lastIdFromMain);
 
+		if ( employee_confirmacion(auxEmployee) )
+		{
+			ll_add(pArrayListEmployee, auxEmployee);
+			printf("\n*****EMPLEADO CARGADO EXITOSAMENTE*****");
+			ret = 1;
+		}
 
+		else
+		{
+			printf("\nHa cancelado la carga!");
+		}
+	}
 
-
-
-
-
-    return 1;
+    return ret;
 }
 
 /** \brief Modificar datos de empleado
@@ -185,22 +196,6 @@ int controller_sortEmployee(LinkedList* pArrayListEmployee)
     return 1;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /** \brief Guarda los datos de los empleados en el archivo data.csv (modo texto).
  *
  * \param path char*
@@ -226,28 +221,25 @@ int controller_saveAsText(char* path , LinkedList* pArrayListEmployee)
 		len = ll_len(pArrayListEmployee);
 		if (pFile != NULL)
 		{
-			for (i = 0; i < len ; i++)
+			fprintf(pFile,"%s\n", "id,nombre,horasTrabajadas,sueldo");
+			for(i = 0; i < len; i++)
 			{
-				Employee* auxEmployee = (Employee*) ll_get(pArrayListEmployee, i);
-				fprintf(pFile,"%s\n", "id,nombre,horasTrabajadas,sueldo");
-				for(i = 0; i < len; i++)
-				{
-					auxEmployee = (Employee*) ll_get (pArrayListEmployee , i );
-					employee_getId(auxEmployee, &auxId);
-					employee_getNombre(auxEmployee, auxName);
-					employee_getHorasTrabajadas(auxEmployee, &auxHours);
-					employee_getSueldo(auxEmployee, &auxSalary);
+				Employee* auxEmployee = (Employee*) ll_get (pArrayListEmployee , i );
+				employee_getId(auxEmployee, &auxId);
+				employee_getNombre(auxEmployee, auxName);
+				employee_getHorasTrabajadas(auxEmployee, &auxHours);
+				employee_getSueldo(auxEmployee, &auxSalary);
 
-					fprintf(pFile, "%d,", auxId);
-					fprintf(pFile, "%s," , auxName);
-					fprintf(pFile, "%d," , auxHours);
-					fprintf(pFile, "%d\n" , auxSalary);
-				}
+				fprintf(pFile, "%d,", auxId);
+				fprintf(pFile, "%s," , auxName);
+				fprintf(pFile, "%d," , auxHours);
+				fprintf(pFile, "%d\n" , auxSalary);
 			}
+
+			ret = 1;
 		}
 		fclose (pFile);
 		pFile = NULL;
-		ret = 1;
 	}
     return ret;
 }

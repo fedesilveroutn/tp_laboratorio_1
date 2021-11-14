@@ -313,11 +313,71 @@ int employee_sortBySalary(void* pointer1 , void* pointer2)
 		{
 			ret = 0;
 		}
-
 	}
+	return ret;
+}
+
+
+
+
+
+Employee* employee_add (int lastIdFromMain)
+{
+	Employee* newEmployee = NULL;
+	int auxNewId = 0;
+	int auxNewHours = 0;
+	int auxNewSalary = 0;
+	char newId [21];
+	char newName[128];
+	char newHours[21];
+	char newSalary[21];
+
+	auxNewId = lastIdFromMain + 1;
+	getString(newName, "\nIngrese el NOMBRE del nuevo empleado: ", "ERROR. Reingrese un NOMBRE valido (hasta 127 caracteres): ", 127);
+	getInt(&auxNewHours, "Ingrese las HORAS TRABAJADAS del nuevo empleado: ", "ERROR. Reingrese cantidad de HORAS TRABAJADAS valida (hasta 1000): ", 0 , 1000);
+	getInt(&auxNewSalary, "Ingrese el SALARIO del nuevo empleado: ", "ERROR. Reingrese un SALARIO valido (1000-1000000): ", 1000 , 1000000);
+
+	itoa(auxNewId, newId , 10);
+	itoa(auxNewHours, newHours, 10);
+	itoa(auxNewSalary, newSalary, 10);
+
+	newEmployee = employee_newParametros( newId, newName, newHours, newSalary);
+	return newEmployee;
+}
+
+
+int employee_confirmacion(Employee* employee)
+{
+	int id;
+	char name[128];
+	int hours;
+	int salary;
+	int ret;
+
+	printf("\nDatos del empleado a ser cargado:"
+		   "\n---------------------------------------------------------\n"
+		   "%-5s %-20s %-20s %-20s\n", "ID" ,"NOMBRE" ,"HORAS TRABAJADAS" ,"SUELDO");
+
+	employee_getId(employee, &id);
+	employee_getNombre(employee, name);
+	employee_getHorasTrabajadas(employee, &hours);
+	employee_getSueldo(employee, &salary);
+
+	printf("%-5d %-20s %-20d %-20d\n", id , name, hours, salary  );
+	getInt (&ret, "\nDesea confirmar la carga del nuevo empleado? (1 = SI / 0 = NO): ", "\nERROR. Reingrese una opcion valida (1 = SI / 0 = NO): ", 0 , 1);
 
 	return ret;
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
