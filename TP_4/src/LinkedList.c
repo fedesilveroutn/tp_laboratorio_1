@@ -549,6 +549,7 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 {
 	void* pElement1 = NULL;
 	void* pElement2 = NULL;
+	void* auxElement = NULL;
 	int returnAux = -1;
 	int direction;
 	int newLimit;
@@ -573,8 +574,9 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 				{
 					if(direction == -1)
 					{
-						ll_set(this, i, pElement1);
-						ll_set(this, i+1, pElement2);
+						auxElement = pElement1;
+						pElement1 = pElement2;
+						pElement2 = auxElement;
 						swap = 1;
 					}
 				}
@@ -583,13 +585,17 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 				{
 					if(direction == 1)
 					{
-						ll_set(this, i, pElement1);
-						ll_set(this, i+1, pElement2);
+						auxElement = pElement2;
+						pElement2 = pElement1;
+						pElement1 = auxElement;
 						swap = 1;
 					}
 				}
 			}
 			newLimit--;
+
+			ll_set(this, i, pElement1);
+			ll_set(this, i+1, pElement2);
 
 		}while (swap);
 
