@@ -547,61 +547,56 @@ LinkedList* ll_clone(LinkedList* this)
  */
 int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 {
-    void* pElementOne = NULL;
-    void* pElementTwo = NULL;
-    void* pAuxElement = NULL;
-    int returnAux =-1;
-    int flag;
-    int len;
-    int i;
-    int j;
+	void* pElement1 = NULL;
+	void* pElement2 = NULL;
+	int returnAux = -1;
+	int direction;
+	int newLimit;
+	int swap;
+	int len;
+	int i;
 
-    if( this != NULL && pFunc != NULL && (order == 0 || order == 1)  )
-    {
-    	len = ll_len(this);
+	if(this != NULL && pFunc != NULL && order > -1 && order < 2  )
+	{
+		len = ll_len(this);
+		newLimit = len - 1;
+		do
+		{
+			swap = 0;
+			for ( i = 0; i < newLimit; i++ )
+			{
+				pElement1 = ll_get(this, i);
+				pElement2 = ll_get(this, i + 1);
+				direction = pFunc(pElement1, pElement2);
 
-    	for ( i = 0; i < len - 1 ; i++)
-    	{
+				if(order == 0)
+				{
+					if(direction == -1)
+					{
+						ll_set(this, i, pElement1);
+						ll_set(this, i+1, pElement2);
+						swap = 1;
+					}
+				}
 
-    		for (j = i + 1 ; j < len; j++)
-    		{
-    			pElementOne = ll_get(this, i);
-    			pElementTwo = ll_get(this, j);
+				else if (order == 1)
+				{
+					if(direction == 1)
+					{
+						ll_set(this, i, pElement1);
+						ll_set(this, i+1, pElement2);
+						swap = 1;
+					}
+				}
+			}
+			newLimit--;
 
-    			flag = pFunc(pElementOne , pElementTwo);
+		}while (swap);
 
-    			if( order == 0)
-    			{
-    				if( flag == -1)
-    				{
-    					pAuxElement = pElementOne;
-    					pElementOne = pElementTwo;
-    					pElementTwo = pAuxElement;
-    				}
-    			}
-    			else if ( order == 1)
-    			{
-    				if ( flag == 1)
-    				{
-    					pAuxElement = pElementTwo;
-    					pElementTwo = pElementOne;
-    					pElementOne = pAuxElement;
-    				}
-    			}
-
-    			ll_set(this, i, pElementOne);
-    			ll_set(this, j, pElementTwo);
-    		}
-
-    	}
-
-    	returnAux = 0;
-    }
-
-    return returnAux;
+		returnAux = 0;
+	}
+	return returnAux;
 }
-
-
 
 
 
