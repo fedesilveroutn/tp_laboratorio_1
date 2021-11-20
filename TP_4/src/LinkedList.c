@@ -372,18 +372,6 @@ int ll_isEmpty(LinkedList* this)
     return returnAux;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 /** \brief Inserta un nuevo elemento en la lista en la posicion indicada
  *
  * \param this LinkedList* Puntero a la lista
@@ -396,10 +384,19 @@ int ll_isEmpty(LinkedList* this)
 int ll_push(LinkedList* this, int index, void* pElement)
 {
     int returnAux = -1;
+   int len;
+
+    if(this != NULL && index > -1 )
+    {
+    	len = ll_len(this);
+    	if ( index < len + 1)
+    	{
+    		returnAux = addNode(this, index, pElement);
+    	}
+    }
 
     return returnAux;
 }
-
 
 /** \brief Elimina el elemento de la posicion indicada y retorna su puntero
  *
@@ -412,10 +409,20 @@ int ll_push(LinkedList* this, int index, void* pElement)
 void* ll_pop(LinkedList* this,int index)
 {
     void* returnAux = NULL;
+    int len;
+
+    if( this != NULL && index > -1)
+    {
+    	len = ll_len(this);
+    	if( index < len + 1)
+    	{
+    		returnAux = ll_get(this, index);
+    		ll_remove(this, index);
+    	}
+    }
 
     return returnAux;
 }
-
 
 /** \brief  Determina si la lista contiene o no el elemento pasado como parametro
  *
@@ -428,6 +435,21 @@ void* ll_pop(LinkedList* this,int index)
 int ll_contains(LinkedList* this, void* pElement)
 {
     int returnAux = -1;
+    int i;
+
+    if(this != NULL)
+    {
+    	i = ll_indexOf(this, pElement);
+    	if (i != -1)
+    	{
+    		returnAux = 1;
+    	}
+
+    	else
+    	{
+    		returnAux = 0;
+    	}
+    }
 
     return returnAux;
 }
@@ -443,10 +465,45 @@ int ll_contains(LinkedList* this, void* pElement)
 */
 int ll_containsAll(LinkedList* this,LinkedList* this2)
 {
+    void* pElement;
     int returnAux = -1;
+    int containsRet;
+    int len;
+    int i;
+
+    if( this != NULL && this2 != NULL)
+    {
+    	returnAux = 1;
+    	len = ll_len(this);
+    	for (i = 0; i < len; i++)
+    	{
+    		pElement = ll_get(this2, i);
+    		containsRet = ll_contains(this, pElement);
+    		if ( containsRet != 1 )
+    		{
+    			returnAux = 0;
+    			break;
+    		}
+    	}
+    }
 
     return returnAux;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /** \brief Crea y retorna una nueva lista con los elementos indicados
  *
