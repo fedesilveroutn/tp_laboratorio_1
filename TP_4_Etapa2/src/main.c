@@ -248,24 +248,59 @@ int main()
 
 
             case 12:
-            		controller_isEmpty(listaEmpleados);
+            		if(flag)
+            		{
+            			controller_isEmpty(listaEmpleados);
+        			}
+					else
+					{
+						printf("\nERROR. ACCESO DENEGADO. DEBE CARGAR LOS DATOS DE LOS EMPLEADOS (MODO TEXTO) PREVIAMENTE!");
+						systemPause("\nPresione enter para continuar...\n");
+					}
             		break;
 
 
             case 13:
+            		if(flag)
+            		{
             		listaEmpleados2 = ll_clone(listaEmpleados);
             		controller_ListEmployee(listaEmpleados2);
+            		}
+
+					else
+					{
+						printf("\nERROR. ACCESO DENEGADO. DEBE CARGAR LOS DATOS DE LOS EMPLEADOS (MODO TEXTO) PREVIAMENTE!");
+						systemPause("\nPresione enter para continuar...\n");
+					}
             		break;
 
 
 
             case 14:
+            		if(flag)
+            		{
             		controller_createSublist(listaEmpleados);
+            		}
+
+					else
+					{
+						printf("\nERROR. ACCESO DENEGADO. DEBE CARGAR LOS DATOS DE LOS EMPLEADOS (MODO TEXTO) PREVIAMENTE!");
+						systemPause("\nPresione enter para continuar...\n");
+					}
             		break;
 
 
             case 15:
+            		if(flag)
+            		{
             		controller_checkContainsAll(listaEmpleados, listaEmpleados2);
+            		}
+
+					else
+					{
+						printf("\nERROR. ACCESO DENEGADO. DEBE CARGAR LOS DATOS DE LOS EMPLEADOS (MODO TEXTO) PREVIAMENTE!");
+						systemPause("\nPresione enter para continuar...\n");
+					}
             		break;
 
             case 16:
