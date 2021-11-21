@@ -109,20 +109,20 @@ static int addNode(LinkedList* this, int nodeIndex, void* pElement)
 	{
 		auxNode = (Node*) malloc (sizeof(Node));
 		auxNode->pElement = pElement;
-		if (nodeIndex == 0)//en el caso que quiera insertarlo en la primera posicion de la linkedlist
+		if (nodeIndex == 0)
 		{
 			auxNode->pNextNode = this->pFirstNode;
 			this->pFirstNode = auxNode;
 		}
 
-		else if (nodeIndex > 0 && nodeIndex < len)//en el caso que quiera insertarlo entre medio de dos nodos
+		else if (nodeIndex > 0 && nodeIndex < len)
 		{
 			auxPreviousNode = getNode(this, nodeIndex - 1);
 			auxNode->pNextNode = auxPreviousNode->pNextNode;
 			auxPreviousNode->pNextNode = auxNode;
 		}
 
-		else//en el caso que quiera insertarlo al final de la linkedlist
+		else
 		{
 			auxPreviousNode = getNode(this, nodeIndex - 1);
 			auxPreviousNode->pNextNode = auxNode;
@@ -384,7 +384,7 @@ int ll_isEmpty(LinkedList* this)
  */
 int ll_push(LinkedList* this, int index, void* pElement)
 {
-    int returnAux = -1;
+   int returnAux = -1;
    int len;
 
     if(this != NULL && index > -1 )

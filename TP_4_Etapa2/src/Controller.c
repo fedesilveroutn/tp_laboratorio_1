@@ -228,7 +228,6 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee)
 		{
 			auxEmployee = (Employee*) ll_get(pArrayListEmployee, i);
 
-			//MODULARIZAR
 			printf("\n%-5d %-14s %-9d %-10d", auxEmployee->id, auxEmployee->nombre, auxEmployee->horasTrabajadas, auxEmployee->sueldo );
 		}
 
@@ -396,3 +395,108 @@ int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee)
 	return ret;
 }
 
+
+
+
+int controller_addEmployeeHere (LinkedList* pArrayListEmployee, int lastIdFromMain )
+{
+	Employee* auxEmployee;
+	int ret = -1;
+	int i;
+
+	if ( pArrayListEmployee != NULL )
+	{
+		getInt(&i, "\nIngrese la posicion en la cual desea agregar el empleado: " , "\nERROR. Reingrese una posicion correcta (1-1000): ", 1 , 1000);
+		auxEmployee = employee_add(lastIdFromMain);
+		if(employee_confirmacion(auxEmployee))
+		{
+			ll_push(pArrayListEmployee, i, auxEmployee);
+			ret = 0;
+			printf("\n*****EMPLEADO CARGADO EN LA POSICION %d EXITOSAMENTE*****", i);
+		}
+	}
+
+	return ret;
+}
+
+
+int controller_removeEmployeeHere (LinkedList* pArrayListEmployee, int lastIdFromMain )
+{
+	int ret = -1;
+	int i;
+
+	if(pArrayListEmployee != NULL)
+	{
+		controller_ListEmployee(pArrayListEmployee);
+		getInt(&i, "\nIngrese la posicion perteneciente al empleado a eliminar: " , "\nERROR. Reingrese una posicion correcta (1-1000): ", 1 , 1000);
+		ll_pop(pArrayListEmployee, i);
+		ret = 0;
+		printf("\n*****EMPLEADO ELIMINADO EN LA POSICION %d EXITOSAMENTE*****", i);
+	}
+	return ret;
+}
+
+
+int controller_isEmpty(LinkedList* pArrayListEmployee)
+{
+	int ret = -1;
+	int asw;
+	if ( pArrayListEmployee != NULL )
+	{
+		asw = ll_isEmpty(pArrayListEmployee);
+		if(asw)
+		{
+			printf("\nLA LISTA NO CONTIENE ELEMENTOS!");
+		}
+		else
+		{
+			printf("\nLA LISTA SI CONTIENE ELEMENTOS!");
+		}
+
+		ret = 0;
+	}
+
+	return ret;
+}
+
+
+int controller_createSublist(LinkedList* pArrayListEmployee)
+{
+	LinkedList* sublist = NULL;
+	int ret = -1;
+	int min;
+	int max;
+	if( pArrayListEmployee)
+	{
+		getInt(&min, "\nIngrese desde que elemento quiere empezar a copiar: ", "\nERROR. Reingrese un numero valido (mayor a 0 y menor a 1000): ", 1, 1000);
+		getInt(&max, "\nIngrese hasta que elemento quiere copiar: ", "\nERROR. Reingrese un numero valido (mayor a 0 y menor a 1000): ", 1, 1000);
+		sublist = ll_subList(pArrayListEmployee, min, max);
+		ret = 0;
+		controller_ListEmployee(sublist);
+	}
+
+	return ret;
+}
+
+
+int controller_checkContainsAll(LinkedList* pArrayListEmployee1, LinkedList* pArrayListEmployee2)
+{
+	int ret = -1;
+	int asw;
+
+	if (pArrayListEmployee1 != NULL && pArrayListEmployee2)
+	{
+		asw = ll_containsAll(pArrayListEmployee1, pArrayListEmployee2);
+		if (asw)
+		{
+			printf("\nLa lista 1 contiene todos los elementos de la lista 2!");
+		}
+		else
+		{
+			printf("\nLa lista 1 NO contiene los elementos de la lista 2!");
+		}
+
+	}
+
+	return ret;
+}

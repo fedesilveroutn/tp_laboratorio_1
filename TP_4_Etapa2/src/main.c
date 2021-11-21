@@ -16,6 +16,7 @@ int main()
     lastIdMain = getLastIdFromTxt();
 
     LinkedList* listaEmpleados = ll_newLinkedList();
+    LinkedList* listaEmpleados2 = ll_newLinkedList();
 
     do{
 
@@ -30,9 +31,15 @@ int main()
 				 "\n7. Ordenar empleados"
 				 "\n8. Guardar los datos de los empleados en el archivo data.csv (modo texto)."
 				 "\n9. Guardar los datos de los empleados en el archivo data.csv (modo binario)."
-				 "\n10. Salir"
+				 "\n10.Agregar un empleado en una posicion específica"
+				 "\n11.Eliminar un empleado en una posicion específica"
+				 "\n12.Verificar si la lista esta vacia"
+				 "\n13.Clonar lista"
+				 "\n14.Crear una sublista"
+				 "\n15.Verificar si la segunda lista contiene todos los elementos de la primera"
+				 "\n16. Salir"
 				 "\n-------------------------------------------------------------------------------\n"
-				 "Ingrese una opcion (1 - 10): ",
+				 "Ingrese una opcion (1 - 16): ",
 				 "\nERROR!\n"
 				 "\n------------------------------------MENU----------------------------------------\n"
 				 "\n1. Cargar los datos de los empleados desde el archivo data.csv (modo texto)."
@@ -44,9 +51,15 @@ int main()
 				 "\n7. Ordenar empleados"
 				 "\n8. Guardar los datos de los empleados en el archivo data.csv (modo texto)."
 				 "\n9. Guardar los datos de los empleados en el archivo data.csv (modo binario)."
-				 "\n10. Salir"
+				 "\n10.Agregar un empleado en una posicion específica"
+				 "\n11.Eliminar un empleado en una posicion específica"
+				 "\n12.Verificar si la lista esta vacia"
+				 "\n13.Clonar lista"
+				 "\n14.Crear una sublista"
+				 "\n15.Verificar si la segunda lista contiene todos los elementos de la primera"
+				 "\n16. Salir"
 				 "\n-------------------------------------------------------------------------------\n"
-				 "Reingrese una opcion valida (1 - 10): ", 1 , 10 );
+				 "Reingrese una opcion valida (1 - 16): ", 1 , 16 );
 
         switch(option)
         {
@@ -205,12 +218,63 @@ int main()
 					}
 					break;
 
+
+
+
             case 10:
+            		if(flag)
+					{
+            			controller_addEmployeeHere (listaEmpleados, lastIdMain );
+					}
+            		else
+					{
+						printf("\nERROR. ACCESO DENEGADO. DEBE CARGAR LOS DATOS DE LOS EMPLEADOS PREVIAMENTE!");
+					}
+
+            		break;
+
+
+            case 11:
+            		if(flag)
+					{
+						controller_removeEmployeeHere (listaEmpleados, lastIdMain );
+					}
+					else
+					{
+						printf("\nERROR. ACCESO DENEGADO. DEBE CARGAR LOS DATOS DE LOS EMPLEADOS PREVIAMENTE!");
+					}
+
+            		break;
+
+
+            case 12:
+            		controller_isEmpty(listaEmpleados);
+            		break;
+
+
+            case 13:
+            		listaEmpleados2 = ll_clone(listaEmpleados);
+            		controller_ListEmployee(listaEmpleados2);
+            		break;
+
+
+
+            case 14:
+            		controller_createSublist(listaEmpleados);
+            		break;
+
+
+            case 15:
+            		controller_checkContainsAll(listaEmpleados, listaEmpleados2);
+            		break;
+
+            case 16:
             		printf("\nSaliendo del programa...");
+            		ll_deleteLinkedList(listaEmpleados);
             		break;
         }
 
-    }while(option != 10);
+    }while(option != 15);
 
     printf("\nFIN DEL PROGRAMA.");
 

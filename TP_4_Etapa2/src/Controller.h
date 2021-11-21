@@ -8,5 +8,10 @@ int controller_ListEmployee(LinkedList* pArrayListEmployee);
 int controller_sortEmployee(LinkedList* pArrayListEmployee);
 int controller_saveAsText(char* path , LinkedList* pArrayListEmployee);
 int controller_saveAsBinary(char* path , LinkedList* pArrayListEmployee);
+int controller_addEmployeeHere (LinkedList* pArrayListEmployee, int lastIdFromMain );
+int controller_removeEmployeeHere (LinkedList* pArrayListEmployee, int lastIdFromMain );
+int controller_isEmpty(LinkedList* pArrayListEmployee);
+int controller_createSublist(LinkedList* pArrayListEmployee);
+int controller_checkContainsAll(LinkedList* pArrayListEmployee1, LinkedList* pArrayListEmployee2);
 
 
